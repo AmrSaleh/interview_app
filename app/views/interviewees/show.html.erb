@@ -1,0 +1,24 @@
+<div class="page-header">
+  <%= link_to interviewees_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_interviewee_path(@interviewee), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show interviewee</h1>
+
+</div>
+<%= image_tag @interviewee.avatar.url %>
+<%= image_tag @interviewee.avatar.url(:medium) %>
+<%= image_tag @interviewee.avatar.url(:thumb) %>
+
+<dl class="dl-horizontal">
+  <dt>Name:</dt>
+  <dd><%= @interviewee.name %></dd>
+
+  <dt>Cv:</dt>
+  <dd><%= @interviewee.cv %></dd>
+
+</dl>

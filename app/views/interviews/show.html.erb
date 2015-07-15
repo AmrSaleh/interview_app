@@ -1,0 +1,23 @@
+<div class="page-header">
+  <%= link_to interviews_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_interview_path(@interview), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show interview</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Score:</dt>
+  <dd><%= @interview.score %></dd>
+  <dt>Interviewer_Name:</dt>
+  <dd><%= @interview.interviewer.name %></dd>
+  <dt>Interviewee_Name:</dt>
+  <dd><%= @interview.interviewee.name %></dd>
+  <dt>Vacant_job:</dt>
+  <dd><%= @interview.vacant_job.name %></dd>
+
+</dl>

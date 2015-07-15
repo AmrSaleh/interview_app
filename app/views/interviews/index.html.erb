@@ -1,0 +1,35 @@
+<div class="page-header">
+  <%= link_to new_interview_path, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    New Interview
+  <% end %>
+  <h1>Listing interviews</h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+            <th>Score</th>
+            <th>Interviewer_Name</th>
+            <th>Interviewee_Name</th>
+            <th>Vacant_Job</th>
+            <th></th>
+            <th></th>
+            <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= content_tag_for(:tr, @interviews) do |interview| %>
+            <td><%= interview.score %></td>
+             <td><%= interview.interviewer.name%></td>
+              <td><%= interview.interviewee.name %></td>
+               <td><%= interview.vacant_job.name %></td>
+            <td><%= link_to 'Show', interview %></td>
+        <td><%= link_to 'Edit', edit_interview_path(interview) %></td>
+        <td><%= link_to 'Destroy', interview, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>

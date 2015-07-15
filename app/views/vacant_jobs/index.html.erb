@@ -1,0 +1,31 @@
+<div class="page-header">
+  <%= link_to new_vacant_job_path, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    New Vacant job
+  <% end %>
+  <h1>Listing vacant_jobs</h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+            <th>Name</th>
+            <th>Avail places</th>
+            <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= content_tag_for(:tr, @vacant_jobs) do |vacant_job| %>
+            <td><%= vacant_job.name %></td>
+            <td><%= vacant_job.avail_places %></td>
+            <td><%= link_to 'Show', vacant_job %></td>
+        <td><%= link_to 'Edit', edit_vacant_job_path(vacant_job) %></td>
+        <td><%= link_to 'Destroy', vacant_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>

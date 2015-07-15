@@ -1,0 +1,20 @@
+<div class="page-header">
+  <%= link_to vacant_jobs_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_vacant_job_path(@vacant_job), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show vacant_job</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Name:</dt>
+  <dd><%= @vacant_job.name %></dd>
+
+  <dt>Avail places:</dt>
+  <dd><%= @vacant_job.avail_places %></dd>
+
+</dl>

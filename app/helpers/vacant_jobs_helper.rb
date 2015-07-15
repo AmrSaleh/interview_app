@@ -1,0 +1,2 @@
+module VacantJobsHelper
+end
