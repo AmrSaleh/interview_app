@@ -1,4 +1,12 @@
 InterviewApp::Application.routes.draw do
+  get "resumes/index"
+
+  get "resumes/new"
+
+  get "resumes/create"
+
+  get "resumes/destroy"
+
   resources :vacant_jobs
 
 
@@ -10,7 +18,10 @@ InterviewApp::Application.routes.draw do
 
   resources :interviewers
 
-
+resources :resumes, only: [:index, :new, :create, :destroy]
+  # root "resumes#index"
+  
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
