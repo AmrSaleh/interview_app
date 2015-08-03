@@ -1,0 +1,20 @@
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Download Link</th>
+			<th>Interviewee_id</th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% the_resumes.each do |resume| %>
+		<tr>
+			<td><%= resume.name %></td>
+			<td><%= link_to "Download Resume", resume.attachment_url %></td>
+			<td><%= resume.interviewee.id %></td>
+			<td><%= button_to "Delete",  resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{resume.name}?" %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

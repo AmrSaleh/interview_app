@@ -1,4 +1,5 @@
 class InterviewersController < ApplicationController
+   before_filter :authenticate_user!, except: [:index, :show]
   # GET /interviewers
   # GET /interviewers.json
   def index
@@ -24,7 +25,8 @@ class InterviewersController < ApplicationController
   # GET /interviewers/new
   # GET /interviewers/new.json
   def new
-    @interviewer = Interviewer.new
+    # @interviewer = Interviewer.new
+    @interviewer = current_user.interviewers.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,7 +42,14 @@ class InterviewersController < ApplicationController
   # POST /interviewers
   # POST /interviewers.json
   def create
-    @interviewer = Interviewer.new(params[:interviewer])
+    
+    
+if !current_user.interviewees.first.nil? || !current_user.interviewers.first.nil?
+ raise "sorry buddy, you already have one"
+ return
+end
+    # @interviewer = Interviewer.new(params[:interviewer])
+    @interviewer = current_user.interviewers.build(params[:interviewer])
 
     respond_to do |format|
       if @interviewer.save

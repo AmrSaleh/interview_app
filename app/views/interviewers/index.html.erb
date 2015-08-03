@@ -12,6 +12,7 @@
       <tr>
             <th>Name</th>
             <th>Position</th>
+            <th>User_email</th>
             <th></th>
         <th></th>
         <th></th>
@@ -22,6 +23,12 @@
       <%= content_tag_for(:tr, @interviewers) do |interviewer| %>
             <td><%= interviewer.name %></td>
             <td><%= interviewer.position %></td>
+            <td><% if !interviewer.user.nil? %>
+				<%= interviewer.user.email %>
+				<% else %>
+				<%= "no email (just testing)" %>
+				<% end%>
+			</td>
             <td><%= link_to 'Show', interviewer %></td>
         <td><%= link_to 'Edit', edit_interviewer_path(interviewer) %></td>
         <td><%= link_to 'Destroy', interviewer, method: :delete, data: { confirm: 'Are you sure?' } %></td>

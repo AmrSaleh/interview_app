@@ -14,6 +14,12 @@
     <%= f.text_field :name %>
     <%= f.label :attachment %>
     <%= f.file_field :attachment %>
+    
+    <%= f.label :interviewee_id %>
+     <%= f.text_field :interviewee_id, :placeholder => @sent_id%>
+     
+<!-- <%= f.hidden_field :interviewee_id, :value => @interviewee_id %> -->
+     
     <%= f.submit "Save", class: "btn btn-primary" %>
   <% end %>
 </div>

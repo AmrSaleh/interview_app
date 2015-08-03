@@ -5,11 +5,14 @@ class ResumesController < ApplicationController
 
   def new
     @resume = Resume.new
+    @sent_id = params[:sent_id]
   end
 
   def create
+    
     @resume = Resume.new(params[:resume])
     # @resume = Resume.new(resume_params)
+    
 
     if @resume.save
       redirect_to resumes_path, notice: "The resume #{@resume.name} has been uploaded."
@@ -20,8 +23,9 @@ class ResumesController < ApplicationController
 
   def destroy
     @resume = Resume.find(params[:id])
+    
     @resume.destroy
-    redirect_to resumes_path, notice:  "The resume #{@resume.name} has been deleted."
+    redirect_to request.referrer, notice:  "The resume #{@resume.name} has been deleted."
   end
 
 private

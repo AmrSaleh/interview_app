@@ -1,4 +1,5 @@
 class IntervieweesController < ApplicationController
+   before_filter :authenticate_user!, except: [:index, :show]
   # GET /interviewees
   # GET /interviewees.json
   def index
@@ -25,7 +26,9 @@ class IntervieweesController < ApplicationController
   # GET /interviewees/new.json
   def new
 
-    @interviewee = Interviewee.new
+    # @interviewee = Interviewee.new
+    @interviewee = current_user.interviewees.build
+    @resume = Resume.new
     # @image = Interviewee.create( params[:interviewee] )
     respond_to do |format|
       format.html # new.html.erb
@@ -36,23 +39,33 @@ class IntervieweesController < ApplicationController
   # GET /interviewees/1/edit
   def edit
     @interviewee = Interviewee.find(params[:id])
+    @resume = Resume.new
   end
 
   # POST /interviewees
   # POST /interviewees.json
   def create
 
-    
+if !current_user.interviewees.first.nil? || !current_user.interviewers.first.nil?
+ raise "sorry buddy, you already have one"
+ return
+end
+
     # @image = Interviewee.create( params[:interviewee] )
 
-    @interviewee = Interviewee.new(params[:interviewee])
+    # @interviewee = Interviewee.new(params[:interviewee])
+    @interviewee = current_user.interviewees.build(params[:interviewee])
 
     respond_to do |format|
-      if @interviewee.save
+      if @interviewee.save!
+        if ( params[:resume]['name']!= ""  && params[:resume]['attachment']!=nil)
+          @resume = Resume.create(params[:resume])
+          @resume.update_attributes!(interviewee_id: @interviewee.id)
+        end
         format.html { redirect_to @interviewee, notice: 'Interviewee was successfully created.' }
         format.json { render json: @interviewee, status: :created, location: @interviewee }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
         format.json { render json: @interviewee.errors, status: :unprocessable_entity }
       end
     end
@@ -62,6 +75,12 @@ class IntervieweesController < ApplicationController
   # PUT /interviewees/1.json
   def update
     @interviewee = Interviewee.find(params[:id])
+
+    # && params[:resume]["attachment"] !=nil)
+    if ( params[:resume]["name"]!= ""  && params[:resume]["attachment"]!=nil)
+      @resume = Resume.create(params[:resume])
+      @resume.update_attributes!(interviewee_id: @interviewee.id)
+    end
 
     respond_to do |format|
       if @interviewee.update_attributes(params[:interviewee])

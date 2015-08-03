@@ -1,23 +1,30 @@
-
 <br />
 <%= link_to "New Resume", new_resume_path, class: "btn btn-primary" %>
 <br />
 <br />
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Download Link</th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @resumes.each do |resume| %>
-      <tr>
-        <td><%= resume.name %></td>
-        <td><%= link_to "Download Resume", resume.attachment_url %></td>
-        <td><%= button_to "Delete",  resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{resume.name}?" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
+<%= render partial: '/resumes/edit_table',
+formats: :html,
+handlers: :erb,
+locals: {the_resumes: @resumes} %>
+
+<!-- <table class="table table-bordered table-striped">
+<thead>
+<tr>
+<th>Name</th>
+<th>Download Link</th>
+<th>Interviewee_id</th>
+<th>&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<% @resumes.each do |resume| %>
+<tr>
+<td><%= resume.name %></td>
+<td><%= link_to "Download Resume", resume.attachment_url %></td>
+<td><%= resume.interviewee.id %></td>
+<td><%= button_to "Delete",  resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{resume.name}?" %></td>
+</tr>
+<% end %>
+</tbody>
+</table> -->

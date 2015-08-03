@@ -16,5 +16,14 @@
 
   <dt>Position:</dt>
   <dd><%= @interviewer.position %></dd>
+  
+  <dt>User email:</dt>
+  <dd>
+		<% if !@interviewer.user.nil? %>
+				<%= @interviewer.user.email %>
+				<% else %>
+				<%= "no email (just testing)" %>
+				<% end%>
+	</dd>
 
 </dl>

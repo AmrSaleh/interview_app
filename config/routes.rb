@@ -1,11 +1,17 @@
 InterviewApp::Application.routes.draw do
+  devise_for :users
+
   get "resumes/index"
+
+  get "users/index"
 
   get "resumes/new"
 
   get "resumes/create"
 
   get "resumes/destroy"
+  
+
 
   resources :vacant_jobs
 
@@ -18,6 +24,8 @@ InterviewApp::Application.routes.draw do
 
   resources :interviewers
 
+root :to => 'interviewees#index'
+ 
 resources :resumes, only: [:index, :new, :create, :destroy]
   # root "resumes#index"
   

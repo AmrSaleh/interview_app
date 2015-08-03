@@ -24,7 +24,17 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
+gem 'calendar_date_select', :git => 'git://github.com/paneq/calendar_date_select.git'
+
+gem "watu_table_builder", :require => "table_builder", :git => "git://github.com/watu/table_builder.git"
+
+gem 'fullcalendar-rails' 
+
+gem 'test-unit'
+
+gem 'devise', '~> 3.5.1'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

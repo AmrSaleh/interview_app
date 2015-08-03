@@ -1,13 +1,38 @@
 <div class="page-header">
-  <%= link_to interviewees_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Back
-  <% end %>
-  <%= link_to @interviewee, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-info-sign"></span>
-    Show
-  <% end %>
-  <h1>Editing interviewee</h1>
+	<%= link_to interviewees_path, class: 'btn btn-default' do %>
+	<span class="glyphicon glyphicon-list-alt"></span>
+	Back
+	<% end %>
+	<%= link_to @interviewee, class: 'btn btn-primary' do %>
+	<span class="glyphicon glyphicon-info-sign"></span>
+	Show
+	<% end %>
+	<h1>Editing interviewee</h1>
 </div>
-
 <%= render 'form' %>
+
+<%= render partial: '/resumes/edit_table',
+formats: :html,
+handlers: :erb,
+locals: {the_resumes: @interviewee.resumes} %>
+
+<!-- <table class="table table-bordered table-striped">
+<thead>
+<tr>
+<th>Name</th>
+<th>Download Link</th>
+<th>Interviewee_id</th>
+<th>&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<% @interviewee.resumes.each do |resume| %>
+<tr>
+<td><%= resume.name %></td>
+<td><%= link_to "Download Resume", resume.attachment_url %></td>
+<td><%= resume.interviewee.id %></td>
+<td><%= button_to "Delete",  resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{resume.name}?" %></td>
+</tr>
+<% end %>
+</tbody>
+</table> -->

@@ -1,4 +1,5 @@
 class InterviewsController < ApplicationController
+ before_filter :authenticate_user!, except: [:index, :show]
   # GET /interviews
   # GET /interviews.json
   def index
@@ -41,7 +42,7 @@ class InterviewsController < ApplicationController
   # POST /interviews.json
   def create
     
-
+    @interview = Interview.new(params[:interview])
     respond_to do |format|
       if @interview.save
         format.html { redirect_to @interview, notice: 'Interview was successfully created.' }
