@@ -80,5 +80,18 @@ class InterviewsController < ApplicationController
       format.html { redirect_to interviews_url }
       format.json { head :no_content }
     end
+    
   end
+  
+    def load_events
+    	events = Array.new
+    	
+    	Interview.all.each do |interview|
+    		
+					event = {url:"/interviews/"+interview.id.to_s,start: interview.date, title: interview.interviewee.name + " with "+ interview.interviewer.name+ "\n"+ interview.vacant_job.name+ "\n" + interview.score.to_s}
+					events.push(event)
+        end
+#     Interview.all.to_json
+			render json: events
+    end
 end

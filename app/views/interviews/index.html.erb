@@ -1,41 +1,141 @@
+<!-- <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js", "application" %> -->
 
-<%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js", "application" %>
+<link rel='stylesheet' href='/assets/fullcalendar/fullcalendar.css' />
+<script src='/assets/fullcalendar/lib/jquery.min.js'></script>
+<script src='/assets/fullcalendar/lib/moment.min.js'></script>
+<script src='/assets/fullcalendar/fullcalendar.js'></script>
+
+<script>
+	$(document).ready(function() {
+
+		// page is now ready, initialize the calendar...
+
+		$('#calendar').fullCalendar({
+
+			events : function(start, end, timezone, callback) {
+				$.ajax({
+					url : '/interviews/load_events',
+					type : "get",
+					data : {
+						// our hypothetical feed requires UNIX timestamps
+						start : start.unix(),
+						end : end.unix()
+					},
+					success : function(doc) {
+						//alert(doc);
+						callback(doc);
+					}
+				});
+			},
+			
+			eventClick: function(event) {
+        if (event.url) {
+            window.open(event.url,"_self");
+            return false;
+        }
+   },
+			// header : {
+			// left : 'prev,next today',
+			// center : 'title',
+			// right : 'month,agendaWeek,agendaDay'
+			//
+			// },
+			//
+			// slotMinutes : 30,
+			//
+			// eventSources : [{
+			// url : '/interviews/index',
+			// error : function() {
+			// alert('there was an error while fetching events!');
+			// },
+			// }],
+
+			// eventSources : {// your event source
+			//
+			// events : [// put the array in the events property
+			// {
+			// title : 'event1',
+			// start : '2015-07-25'
+			// }, {
+			// title : 'event2',
+			// start : '2015-07-25',
+			// end : '2015-08-25'
+			// }, {
+			// title : 'event3',
+			// start : '2015-07-29T12:30:00',
+			// allDay : false // will make the time show
+			// }],
+			//
+			// editable : true,
+			// color : 'black', // an option!
+			// textColor : 'yellow', // an option!
+			//
+			// },
+
+			// hiddenDays : {
+			//
+			// hiddenDays : [5, 6]
+			// },
+			//
+			// businessHours : {
+			//
+			// start : '10:00', // a start time (10am in this example)
+			// end : '18:00', // an end time (6pm in this example)
+			//
+			// dow : [0, 1, 2, 3, 4]
+			// // days of week. an array of zero-based day of week integers (0=Sunday)
+			// // (Monday-Thursday in this example)
+			// },
+			//
+			// dayClick : function() {
+			// alert('a day has been clicked!');
+			// }
+			// /* other options go here */
+
+		});
+
+	});
+
+</script>
 
 <div class="page-header">
-  <%= link_to new_interview_path, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-plus"></span>
-    New Interview
-  <% end %>
-  <h1>Listing interviews</h1>
+	<%= link_to new_interview_path, class: 'btn btn-primary' do %>
+	<span class="glyphicon glyphicon-plus"></span>
+	New Interview
+	<% end %>
+	<h1>Listing interviews</h1>
 </div>
 
 <div class="table-responsive">
-  <table class="table table-striped table-bordered table-hover">
-    <thead>
-      <tr>
-            <th>Score</th>
-            <th>Interviewer_Name</th>
-            <th>Interviewee_Name</th>
-            <th>Vacant_Job</th>
-             <th>Date</th>
-            <th></th>
-            <th></th>
-            <th></th>
-      </tr>
-    </thead>
+	<table class="table table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>Score</th>
+				<th>Interviewer_Name</th>
+				<th>Interviewee_Name</th>
+				<th>Vacant_Job</th>
+				<th>Date</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
 
-    <tbody>
-      <%= content_tag_for(:tr, @interviews) do |interview| %>
-            <td><%= interview.score %></td>
-             <td><%= interview.interviewer.name%></td>
-              <td><%= interview.interviewee.name %></td>
-               <td><%= interview.vacant_job.name %></td>
-                <td><%= interview.date %></td>
-            <td><%= link_to 'Show', interview %></td>
-        <td><%= link_to 'Edit', edit_interview_path(interview) %></td>
-        <td><%= link_to 'Destroy', interview, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      <% end %>
-    </tbody>
-  </table>
+		<tbody>
+			<%= content_tag_for(:tr, @interviews) do |interview| %>
+			<td><%= interview.score %></td>
+			<td><%= interview.interviewer.name%></td>
+			<td><%= interview.interviewee.name %></td>
+			<td><%= interview.vacant_job.name %></td>
+			<td><%= interview.date %></td>
+			<td><%= link_to 'Show', interview %></td>
+			<td><%= link_to 'Edit', edit_interview_path(interview) %></td>
+			<td><%= link_to 'Destroy', interview, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			<% end %>
+		</tbody>
+	</table>
+
+	<div id='calendar'></div>
+
 </div>
 

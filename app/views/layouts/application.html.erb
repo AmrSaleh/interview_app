@@ -29,9 +29,13 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
+           <% if !user_signed_in?%>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
+           <%end%>
+          <% if user_signed_in?%>
           <span class="icon-bar"></span>
+          <%end%>
         </button>
         <%= link_to "Vacant Jobs", "/vacant_jobs", class: "navbar-brand" %>
       </div>
@@ -41,9 +45,13 @@
           <li><a href="/interviews">Interviews</a></li>
           <li><a href="/interviewees">Interviewees</a></li>
           <li><a href="/interviewers">Interviewers</a></li>
+           <% if !user_signed_in?%>
           <li><a href="/users/sign_up">Sign Up</a></li>
           <li><a href="/users/sign_in">Sign In</a></li>
+           <%end%>
+          <% if user_signed_in?%>
           <li><a href="/users/sign_out" data-method="delete">Sign Out</a></li>
+          <%end%>
         </ul>
       </div>
     </div>

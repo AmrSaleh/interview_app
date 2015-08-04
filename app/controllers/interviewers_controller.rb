@@ -45,7 +45,7 @@ class InterviewersController < ApplicationController
     
     
 if !current_user.interviewees.first.nil? || !current_user.interviewers.first.nil?
- raise "sorry buddy, you already have one"
+ raise "sorry buddy, you already have one account"
  return
 end
     # @interviewer = Interviewer.new(params[:interviewer])
