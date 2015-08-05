@@ -2,14 +2,18 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-  	
+  	user ||= User.new # guest user (not logged in)
   	if user.admin?
   		can :manage, :all
+  		puts "++++++++++++++++++"
   	else
   		# can :update, User
-  		# can :update, User do |myUser|
-  			# myUser == user
-  		# end
+  		puts "$$$$$$$$$$$$$$$"
+  		can :show, Interviewee do |x|
+  			puts "hereeeeeeeeeeeeeeeeeeee"
+  			puts "user : #{ x.user_id}"
+  			x.user_id == user.id
+  		end
   		
   		# can :create, Question
   	end

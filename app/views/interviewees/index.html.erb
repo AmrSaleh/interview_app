@@ -20,16 +20,19 @@
 
 		<tbody>
 			<%= content_tag_for(:tr, @interviewees) do |interviewee| %>
-			<td><%= interviewee.name %></td>
-			<td><% if !interviewee.user.nil? %>
-				<%= interviewee.user.email %>
-				<% else %>
-				<%= "no email (just testing)" %>
-				<% end%>
-			</td>
-			<td><%= link_to 'Show', interviewee %></td>
-			<td><%= link_to 'Edit', edit_interviewee_path(interviewee) %></td>
-			<td><%= link_to 'Destroy', interviewee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			<% puts  interviewee.to_json%>
+				<%if can? :show,interviewee%>
+					<td><%= interviewee.name %></td>
+					<td><% if !interviewee.user.nil? %>
+						<%= interviewee.user.email %>
+						<% else %>
+						<%= "no email (just testing)" %>
+						<% end%>
+					</td>
+					<td><%= link_to 'Show', interviewee %></td>
+					<td><%= link_to 'Edit', edit_interviewee_path(interviewee) %></td>
+					<td><%= link_to 'Destroy', interviewee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				<% end %>
 			<% end %>
 		</tbody>
 	</table>

@@ -11,6 +11,8 @@ InterviewApp::Application.routes.draw do
 
 	get "resumes/destroy"
 
+	resources :home
+
 	resources :vacant_jobs
 
 	resources :interviews do
@@ -22,7 +24,7 @@ InterviewApp::Application.routes.draw do
 
 	resources :interviewers
 
-	root :to => 'vacant_jobs#index'
+	root :to => 'home#show#welcome', page_name: 'welcome'
 
 	resources :resumes, only: [:index, :new, :create, :destroy]
 # root "resumes#index"

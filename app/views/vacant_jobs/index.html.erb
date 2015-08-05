@@ -1,8 +1,10 @@
 <div class="page-header">
+	<%if can? :update,User%>
 	<%= link_to new_vacant_job_path, class: 'btn btn-primary' do %>
 	<span class="glyphicon glyphicon-plus"></span>
 	New Vacant job
 	<% end %>
+	<%end%>
 	<h1>Listing vacant jobs</h1>
 </div>
 
