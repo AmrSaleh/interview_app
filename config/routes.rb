@@ -10,6 +10,7 @@ InterviewApp::Application.routes.draw do
 	get "resumes/create"
 
 	get "resumes/destroy"
+match '/home/make_user_admin/:id/:bool'=> 'home#edit_user_admin'
 
 	resources :home
 

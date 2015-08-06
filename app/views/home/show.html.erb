@@ -2,4 +2,13 @@
 <%= render partial: '/home/welcome',
                   formats: :html,
                   handlers: :erb %>
+<% elsif params[:id] == 'users'%>
+
+<%if can? :manage,:all%>
+<%= render partial: '/home/users_index',
+                  formats: :html,
+                  handlers: :erb %>       
+<%else%>
+Not Authorized
+<% end %>           
 <% end %>
