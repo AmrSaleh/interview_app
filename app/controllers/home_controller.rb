@@ -16,12 +16,13 @@ class HomeController < ApplicationController
       myUser = User.find(params[:id])
 
       if(params[:bool] == 't')
-      		myUser.admin = 't'
+        myUser.update_attributes!(admin: true)
+     
       else
-      		myUser.admin = 'f'
+      	
+          myUser.update_attributes!(admin: false)
       end
 
-      myUser.save
     redirect_to request.referrer, notice:  "#{myUser.email} Admin settings updated"
 	end
 

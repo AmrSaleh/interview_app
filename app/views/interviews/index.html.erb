@@ -123,14 +123,21 @@
 
 		<tbody>
 			<%= content_tag_for(:tr, @interviews) do |interview| %>
-			<td><%= interview.score %></td>
-			<td><%= interview.interviewer.name%></td>
-			<td><%= interview.interviewee.name %></td>
-			<td><%= interview.vacant_job.name %></td>
-			<td><%= interview.date %></td>
-			<td><%= link_to 'Show', interview %></td>
-			<td><%= link_to 'Edit', edit_interview_path(interview) %></td>
-			<td><%= link_to 'Destroy', interview, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			<%if can? :show,interview.interviewee%>
+				<td><%= interview.score %></td>
+				<td><% if !interview.interviewer.nil? %> 
+					<%= interview.interviewer.name %> 
+					<%else%> 
+					<%='not yet assigned'%>
+					<% end %>
+				</td>
+				<td><%= interview.interviewee.name %></td>
+				<td><%= interview.vacant_job.name %></td>
+				<td><%= interview.date %></td>
+				<td><%= link_to 'Show', interview %></td>
+				<td><%= link_to 'Edit', edit_interview_path(interview) %></td>
+				<td><%= link_to 'Destroy', interview, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+			<%end%>
 			<% end %>
 		</tbody>
 	</table>

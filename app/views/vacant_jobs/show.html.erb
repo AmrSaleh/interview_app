@@ -3,9 +3,15 @@
     <span class="glyphicon glyphicon-list-alt"></span>
     Back
   <% end %>
+  <% if can? :manage, :all%>
   <%= link_to edit_vacant_job_path(@vacant_job), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-pencil"></span>
     Edit
+  <% end %>
+  <% end %>
+  <%= link_to interviews_path(apply:'true' , vacant_id: @vacant_job.id)  ,:method => :post, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-user"></span>
+   Apply
   <% end %>
   <h1>Show vacant_job</h1>
 </div>
@@ -16,5 +22,5 @@
 
   <dt>Avail places:</dt>
   <dd><%= @vacant_job.avail_places %></dd>
-
+  
 </dl>

@@ -21,7 +21,11 @@
 		Interviewer_Name:
 	</dt>
 	<dd>
-		<%= @interview.interviewer.name %>
+		<td><% if !@interview.interviewer.nil? %> 
+		<%= @interview.interviewer.name %> 
+		<%else%> 
+		<%='not yet assigned'%>
+		<% end %></td>
 	</dd>
 	<dt>
 		Interviewee_Name:
