@@ -41,7 +41,7 @@ class InterviewsController < ApplicationController
   # POST /interviews
   # POST /interviews.json
   def create
-   
+    if(!current_user.interviewees.first.nil?)
       @interview = Interview.new(params[:interview])
       respond_to do |format|
         if @interview.save
@@ -57,6 +57,11 @@ class InterviewsController < ApplicationController
           format.json { render json: @interview.errors, status: :unprocessable_entity }
         end
       end
+    else
+      
+      flash[:error] = "you must have an interviwee acount to apply"
+      redirect_to new_interviewee_url(apply:'true', vacant_id:params[:vacant_id])
+    end
   end
 
   # PUT /interviews/1

@@ -24,6 +24,13 @@
 </div>
 
 
+	
+	<%= hidden_field :apply,"remote_apply", value: params[:apply]%>
+	<%= hidden_field :vacant_id,"remote_apply", value: params[:vacant_id]%>
+	
+
+
+
 <div class="form-group">
 	<%= f.label :Upload_Avatar, class: "col-sm-2 control-label" %>
 	<div class="col-sm-10">
@@ -56,9 +63,16 @@
 
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-		<%= f.submit class: "btn btn-primary" %>
+		<% if !params[:apply].nil? && params[:apply]=='true'%>
+			<%= f.submit :'Create Interviewee and apply', class: "btn btn-primary" %>
+		<%else%>
+			<%= f.submit class: "btn btn-primary" %>
+		<%end%>
 	</div>
 </div>
+
+
+
 
 <% end %>
 

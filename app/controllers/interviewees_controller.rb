@@ -46,10 +46,10 @@ class IntervieweesController < ApplicationController
   # POST /interviewees.json
   def create
 
-if !current_user.interviewees.first.nil? || !current_user.interviewers.first.nil?
- raise "sorry buddy, you already have one"
- return
-end
+    if !current_user.interviewees.first.nil? || !current_user.interviewers.first.nil?
+     raise "sorry buddy, you already have one acount"
+     return
+    end
 
     # @image = Interviewee.create( params[:interviewee] )
 
@@ -62,13 +62,35 @@ end
           @resume = Resume.create(params[:resume])
           @resume.update_attributes!(interviewee_id: @interviewee.id)
         end
-        format.html { redirect_to @interviewee, notice: 'Interviewee was successfully created.' }
-        format.json { render json: @interviewee, status: :created, location: @interviewee }
+         
+        puts "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"
+        puts params[:apply][:remote_apply]
+
+        if !params[:apply][:remote_apply].nil?
+          # flash[:notice] = "Interviewee was successfully created."
+          # redirect_to interviews_url(apply:'true', vacant_id:params[:vacant_id][:remote_apply]) ,:method => :post
+
+
+          @interview = Interview.new
+          
+          if @interview.save
+                @interview.update_attributes!(interviewee_id: current_user.interviewees.first.id, vacant_job_id:params[:vacant_id][:remote_apply])
+          end
+            
+
+          format.html { redirect_to interviews_url , notice: 'Interview successfully created.' }
+          format.json { render json: interviews_url , status: :created, location: interviews_url  }
+        else
+           format.html { redirect_to @interviewee, notice: 'Interviewee was successfully created.' }
+          format.json { render json: @interviewee, status: :created, location: @interviewee }
+        end
+
       else
         format.html { render action: 'new' }
         format.json { render json: @interviewee.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PUT /interviewees/1
