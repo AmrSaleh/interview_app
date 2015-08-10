@@ -59,7 +59,7 @@ class InterviewsController < ApplicationController
       end
     else
       
-      flash[:error] = "you must have an interviwee acount to apply"
+      flash[:notice] = "Please fill in your information first"
       redirect_to new_interviewee_url(apply:'true', vacant_id:params[:vacant_id])
     end
   end

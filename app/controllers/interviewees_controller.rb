@@ -47,7 +47,9 @@ class IntervieweesController < ApplicationController
   def create
 
     if !current_user.interviewees.first.nil? || !current_user.interviewers.first.nil?
-     raise "sorry buddy, you already have one acount"
+     # raise "sorry buddy, you already have one acount"
+      flash[:error] = "sorry buddy, you already have one account"
+      redirect_to request.referrer
      return
     end
 
@@ -63,10 +65,10 @@ class IntervieweesController < ApplicationController
           @resume.update_attributes!(interviewee_id: @interviewee.id)
         end
          
-        puts "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"
-        puts params[:apply][:remote_apply]
+        # puts "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"
+        # puts params[:apply][:remote_apply]
 
-        if !params[:apply][:remote_apply].nil?
+        if !params[:apply][:remote_apply].nil? && params[:apply]==true
           # flash[:notice] = "Interviewee was successfully created."
           # redirect_to interviews_url(apply:'true', vacant_id:params[:vacant_id][:remote_apply]) ,:method => :post
 

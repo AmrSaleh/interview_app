@@ -1,8 +1,20 @@
 <div class="page-header">
-  <%= link_to new_interviewer_path, class: 'btn btn-primary' do %>
+
+  <%myFlag=false%>
+  <%Interviewer.all.each do |interviewer|%>
+    
+    <%if can? :update ,interviewer %>
+      <%myFlag=true%>
+    <%break%>
+    <%end%>
+  <%end%>
+  <%if myFlag==false %>
+    <%= link_to new_interviewer_path, class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-plus"></span>
     New Interviewer
   <% end %>
+  <%end%>
+
   <h1>Listing interviewers</h1>
 </div>
 
@@ -14,8 +26,8 @@
             <th>Position</th>
             <th>User_email</th>
             <th></th>
-        <th></th>
-        <th></th>
+            <th></th>
+            <th></th>
       </tr>
     </thead>
 
@@ -23,15 +35,21 @@
       <%= content_tag_for(:tr, @interviewers) do |interviewer| %>
             <td><%= interviewer.name %></td>
             <td><%= interviewer.position %></td>
-            <td><% if !interviewer.user.nil? %>
-				<%= interviewer.user.email %>
-				<% else %>
-				<%= "no email (just testing)" %>
-				<% end%>
-			</td>
+            <td>
+              <% if !interviewer.user.nil? %>
+      				<%= interviewer.user.email %>
+      				<% else %>
+      				<%= "no email (just testing)" %>
+      				<% end%>
+      			</td>
             <td><%= link_to 'Show', interviewer %></td>
-        <td><%= link_to 'Edit', edit_interviewer_path(interviewer) %></td>
-        <td><%= link_to 'Destroy', interviewer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <%if can? :update,interviewer%>
+              <td><%= link_to 'Edit', edit_interviewer_path(interviewer) %></td>
+              <td><%= link_to 'Destroy', interviewer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <%else%>
+                <td></td>
+                <td></td>
+            <%end%>
       <% end %>
     </tbody>
   </table>

@@ -99,14 +99,30 @@
 				<br>
 				<br>
 				<a href="/vacant_jobs" class="btn btn-primary btn-xl page-scroll">JOBS</a>
-				<a href="/interviews" class="btn btn-primary btn-xl page-scroll">Interviews</a>
-				<%if can? :show,User%>
-				<a href="/interviewees" class="btn btn-primary btn-xl page-scroll">Interviewees</a>
-				<a href="/interviewers" class="btn btn-primary btn-xl page-scroll">Interviewers</a>
+
+				<%if can? :show,:all%>
+					<a href="/interviews" class="btn btn-primary btn-xl page-scroll">Interviews</a>
+					<a href="/interviewees" class="btn btn-primary btn-xl page-scroll">Interviewees</a>
+					<a href="/interviewers" class="btn btn-primary btn-xl page-scroll">Interviewers</a>
+					<a href="/home/users" class="btn btn-primary btn-xl page-scroll">Show Users</a>
+				<%else%>
+
+					<%Interview.all.each do |interview|%>
+						<%if can? :show ,interview %>
+							<a href="/interviews" class="btn btn-primary btn-xl page-scroll">Interviews</a>
+							<%break%>
+						<%end%>
+					<%end%>
+
+					<%Interviewee.all.each do |interviewee|%>
+						<%if can? :show ,interviewee %>
+							<a href="/interviewees" class="btn btn-primary btn-xl page-scroll">Interviewee Acount</a>
+							<%break%>
+						<%end%>
+					<%end%>
+
 				<%end%>
-				<%if can? :manage,:all%>
-				<a href="/home/users" class="btn btn-primary btn-xl page-scroll">Show Users</a>
-				<%end%>
+
 			</div>
 		</div>
 	</header>

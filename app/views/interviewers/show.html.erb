@@ -3,10 +3,12 @@
     <span class="glyphicon glyphicon-list-alt"></span>
     Back
   <% end %>
+  <%if can? :update,@interviewer%>
   <%= link_to edit_interviewer_path(@interviewer), class: 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-pencil"></span>
     Edit
   <% end %>
+  <%end%>
   <h1>Show interviewer</h1>
 </div>
 

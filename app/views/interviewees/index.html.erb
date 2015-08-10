@@ -1,8 +1,18 @@
 <div class="page-header">
-	<%= link_to new_interviewee_path, class: 'btn btn-primary' do %>
-	<span class="glyphicon glyphicon-plus"></span>
-	New Interviewee
-	<% end %>
+	<%myFlag=false%>
+	<%Interviewee.all.each do |interviewee|%>
+		
+		<%if can? :show ,interviewee %>
+			<%myFlag=true%>
+		<%break%>
+		<%end%>
+	<%end%>
+	<%if myFlag==false %>
+		<%= link_to new_interviewee_path, class: 'btn btn-primary' do %>
+				<span class="glyphicon glyphicon-plus"></span>
+				New Interviewee
+		<% end %>
+	<%end%>
 	<h1>Listing interviewees</h1>
 </div>
 
@@ -13,8 +23,10 @@
 				<th>Name</th>
 				<th>user_email</th>
 				<th></th>
+				<%if !can? :show,:all%>
 				<th></th>
 				<th></th>
+				<%end%>
 			</tr>
 		</thead>
 
@@ -30,8 +42,10 @@
 						<% end%>
 					</td>
 					<td><%= link_to 'Show', interviewee %></td>
+					<%if !can? :show,:all%>
 					<td><%= link_to 'Edit', edit_interviewee_path(interviewee) %></td>
 					<td><%= link_to 'Destroy', interviewee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+					<%end%>
 				<% end %>
 			<% end %>
 		</tbody>

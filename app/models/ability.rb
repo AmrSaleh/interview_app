@@ -4,17 +4,32 @@ class Ability
   def initialize(user)
   	user ||= User.new # guest user (not logged in)
   	if user.admin?
-  		can :manage, :all
-  		puts "++++++++++++++++++"
+  		can :show, :all
+  		# puts "++++++++++++++++++"
+       can :update, Interviewer do |x|
+        puts "anaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        puts x.user_id
+        puts user.id
+        x.user_id == user.id
+      end
   	else
   		# can :update, User
   		puts "$$$$$$$$$$$$$$$"
   		can :show, Interviewee do |x|
-  			puts "hereeeeeeeeeeeeeeeeeeee"
-  			puts "user : #{ x.user_id}"
+  			# puts "hereeeeeeeeeeeeeeeeeeee"
+  			# puts "user : #{ x.user_id}"
   			x.user_id == user.id
   		end
-  		
+
+      can :show, Interview do |x|
+        # puts "anaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        # puts x.interviewee.user_id
+        # puts user.id
+        x.interviewee.user_id == user.id
+      end
+
+      
+
   		# can :create, Question
   	end
     # Define abilities for the passed in user here. For example:

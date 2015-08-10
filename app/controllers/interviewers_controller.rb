@@ -45,7 +45,9 @@ class InterviewersController < ApplicationController
     
     
 if !current_user.interviewees.first.nil? || !current_user.interviewers.first.nil?
- raise "sorry buddy, you already have one account"
+ # raise "sorry buddy, you already have one account"
+      flash[:error] = "sorry buddy, you already have one account"
+      redirect_to request.referrer
  return
 end
     # @interviewer = Interviewer.new(params[:interviewer])

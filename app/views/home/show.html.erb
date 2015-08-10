@@ -4,7 +4,7 @@
                   handlers: :erb %>
 <% elsif params[:id] == 'users'%>
 
-<%if can? :manage,:all%>
+<%if can? :show,:all%>
 <%= render partial: '/home/users_index',
                   formats: :html,
                   handlers: :erb %>       
