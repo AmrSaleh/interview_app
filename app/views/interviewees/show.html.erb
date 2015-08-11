@@ -27,7 +27,7 @@
 	</dd>
 
 	<dt>
-		Cv:
+		email:
 	</dt>
 	<dd>
 		<% if !@interviewee.user.nil? %>
@@ -44,7 +44,7 @@
 		<tr>
 			<th>Name</th>
 			<th>Download Link</th>
-			<th>Interviewee_id</th>
+			<!-- <th>Interviewee_id</th> -->
 
 		</tr>
 	</thead>
@@ -53,7 +53,7 @@
 		<tr>
 			<td><%= resume.name %></td>
 			<td><%= link_to "Download Resume", resume.attachment_url %></td>
-			<td><%= resume.interviewee.id %></td>
+			<!-- <td><%= resume.interviewee.id %></td> -->
 
 		</tr>
 		<% end %>

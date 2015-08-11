@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :admin
   # attr_accessible :title, :body
   
-  has_many :interviewees
-  has_many :interviewers
+  has_many :interviewees ,:dependent => :destroy
+  has_many :interviewers ,:dependent => :destroy
   
   # EXAMPLE ON ONE-to-ONE Relation
   # ===============================

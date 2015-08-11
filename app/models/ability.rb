@@ -18,20 +18,26 @@ class Ability
   		can :show, Interviewee do |x|
   			# puts "hereeeeeeeeeeeeeeeeeeee"
   			# puts "user : #{ x.user_id}"
-  			x.user_id == user.id
+        if !x.nil?
+  			 x.user_id == user.id
+        end
   		end
 
       can :show, Interview do |x|
         # puts "anaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         # puts x.interviewee.user_id
         # puts user.id
-        x.interviewee.user_id == user.id
+        if !x.interviewee.nil?
+          x.interviewee.user_id == user.id
+        end
       end
 
      can :update, Interviewee do |x|
         # puts "hereeeeeeeeeeeeeeeeeeee"
         # puts "user : #{ x.user_id}"
-        x.user_id == user.id
+        if !x.nil?
+          x.user_id == user.id
+        end
       end
 
   		# can :create, Question

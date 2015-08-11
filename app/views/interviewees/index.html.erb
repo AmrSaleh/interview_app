@@ -44,7 +44,7 @@
 					<td><%= link_to 'Show', interviewee %></td>
 					<%if !can? :show,:all%>
 					<td><%= link_to 'Edit', edit_interviewee_path(interviewee) %></td>
-					<td><%= link_to 'Destroy', interviewee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+					<td><%= link_to 'Destroy', interviewee, method: :delete, data: { confirm: "Are you sure?\nDelete account and all related Interviews also?" } %></td>
 					<%end%>
 				<% end %>
 			<% end %>
