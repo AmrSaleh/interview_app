@@ -11,7 +11,7 @@ class HomeController < ApplicationController
 
 	def edit_user_admin
 
-			
+			authorize! :show,:all
 
       myUser = User.find(params[:id])
 

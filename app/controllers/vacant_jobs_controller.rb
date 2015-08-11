@@ -25,7 +25,7 @@ class VacantJobsController < ApplicationController
   # GET /vacant_jobs/new.json
   def new
     @vacant_job = VacantJob.new
-
+ authorize! :show, :all
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @vacant_job }
@@ -35,6 +35,7 @@ class VacantJobsController < ApplicationController
   # GET /vacant_jobs/1/edit
   def edit
     @vacant_job = VacantJob.find(params[:id])
+     authorize! :show, :all
   end
 
   # POST /vacant_jobs
@@ -72,6 +73,7 @@ class VacantJobsController < ApplicationController
   # DELETE /vacant_jobs/1
   # DELETE /vacant_jobs/1.json
   def destroy
+     authorize! :show, :all
     @vacant_job = VacantJob.find(params[:id])
     @vacant_job.destroy
 

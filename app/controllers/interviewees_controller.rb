@@ -3,8 +3,11 @@ class IntervieweesController < ApplicationController
   # GET /interviewees
   # GET /interviewees.json
   def index
+
     @interviewees = Interviewee.all
 
+    
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @interviewees }
@@ -15,7 +18,7 @@ class IntervieweesController < ApplicationController
   # GET /interviewees/1.json
   def show
     @interviewee = Interviewee.find(params[:id])
-
+    authorize! :show,@interviewee
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @interviewee }
@@ -39,6 +42,8 @@ class IntervieweesController < ApplicationController
   # GET /interviewees/1/edit
   def edit
     @interviewee = Interviewee.find(params[:id])
+     authorize! :update,@interviewee
+     
     @resume = Resume.new
   end
 
@@ -99,6 +104,7 @@ class IntervieweesController < ApplicationController
   # PUT /interviewees/1.json
   def update
     @interviewee = Interviewee.find(params[:id])
+     authorize! :show,@interviewee
 
     # && params[:resume]["attachment"] !=nil)
     if ( params[:resume]["name"]!= ""  && params[:resume]["attachment"]!=nil)

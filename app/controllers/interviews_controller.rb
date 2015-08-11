@@ -3,6 +3,7 @@ class InterviewsController < ApplicationController
   # GET /interviews
   # GET /interviews.json
   def index
+    
     @interviews = Interview.all
 
     respond_to do |format|
@@ -15,7 +16,7 @@ class InterviewsController < ApplicationController
   # GET /interviews/1.json
   def show
     @interview = Interview.find(params[:id])
-
+    authorize! :show,@interview.interviewee
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @interview }
@@ -36,17 +37,18 @@ class InterviewsController < ApplicationController
   # GET /interviews/1/edit
   def edit
     @interview = Interview.find(params[:id])
+    authorize! :show,:all
   end
 
   # POST /interviews
   # POST /interviews.json
   def create
-    if(!current_user.interviewees.first.nil?)
+    if(current_user.admin? || !current_user.interviewees.first.nil?)
       @interview = Interview.new(params[:interview])
       respond_to do |format|
         if @interview.save
 
-          if !params[:apply].nil?
+          if !params[:apply].nil? && params[:apply]=="true"
             @interview.update_attributes!(interviewee_id: current_user.interviewees.first.id, vacant_job_id:params[:vacant_id])
           end
 
@@ -84,6 +86,7 @@ class InterviewsController < ApplicationController
   # DELETE /interviews/1.json
   def destroy
     @interview = Interview.find(params[:id])
+
     @interview.destroy
 
     respond_to do |format|

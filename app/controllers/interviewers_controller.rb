@@ -3,6 +3,7 @@ class InterviewersController < ApplicationController
   # GET /interviewers
   # GET /interviewers.json
   def index
+    authorize! :show,:all
     @interviewers = Interviewer.all
 
     respond_to do |format|
@@ -14,6 +15,7 @@ class InterviewersController < ApplicationController
   # GET /interviewers/1
   # GET /interviewers/1.json
   def show
+     authorize! :show,:all
     @interviewer = Interviewer.find(params[:id])
 
     respond_to do |format|
@@ -26,6 +28,7 @@ class InterviewersController < ApplicationController
   # GET /interviewers/new.json
   def new
     # @interviewer = Interviewer.new
+    
     @interviewer = current_user.interviewers.build
 
     respond_to do |format|
@@ -36,7 +39,9 @@ class InterviewersController < ApplicationController
 
   # GET /interviewers/1/edit
   def edit
+
     @interviewer = Interviewer.find(params[:id])
+    authorize! :update,@interviewer
   end
 
   # POST /interviewers
@@ -84,6 +89,7 @@ end
   # DELETE /interviewers/1.json
   def destroy
     @interviewer = Interviewer.find(params[:id])
+    authorize! :update,@interviewer
     @interviewer.destroy
 
     respond_to do |format|

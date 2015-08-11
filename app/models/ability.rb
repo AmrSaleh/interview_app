@@ -28,7 +28,11 @@ class Ability
         x.interviewee.user_id == user.id
       end
 
-      
+     can :update, Interviewee do |x|
+        # puts "hereeeeeeeeeeeeeeeeeeee"
+        # puts "user : #{ x.user_id}"
+        x.user_id == user.id
+      end
 
   		# can :create, Question
   	end
