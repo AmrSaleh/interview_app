@@ -10,5 +10,7 @@ class Interviewee < ActiveRecord::Base
 
    validates :name, presence: true # Make sure the owner's name is present.
 
-
+	def id_with_name
+	    "#{id}: #{name}"
+	end
 end
