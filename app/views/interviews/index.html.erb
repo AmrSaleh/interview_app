@@ -12,6 +12,7 @@
 
 		$('#calendar').fullCalendar({
 
+			 
 			events : function(start, end, timezone, callback) {
 				$.ajax({
 					url : '/interviews/load_events',
@@ -29,11 +30,11 @@
 			},
 			
 			eventClick: function(event) {
-        if (event.url) {
-            window.open(event.url,"_self");
-            return false;
-        }
-   },
+		        if (event.url) {
+		            window.open(event.url,"_self");
+		            return false;
+		        }
+   			},
 			// header : {
 			// left : 'prev,next today',
 			// center : 'title',
@@ -66,31 +67,66 @@
 			// allDay : false // will make the time show
 			// }],
 			//
-			// editable : true,
+			 editable : true,
+
 			// color : 'black', // an option!
 			// textColor : 'yellow', // an option!
 			//
 			// },
 
-			// hiddenDays : {
+			hiddenDays : {
+			
+			hiddenDays : [5, 6]
+			},
 			//
-			// hiddenDays : [5, 6]
-			// },
-			//
-			// businessHours : {
-			//
-			// start : '10:00', // a start time (10am in this example)
-			// end : '18:00', // an end time (6pm in this example)
-			//
-			// dow : [0, 1, 2, 3, 4]
-			// // days of week. an array of zero-based day of week integers (0=Sunday)
-			// // (Monday-Thursday in this example)
-			// },
+			businessHours : {
+			
+			start : '10:00', // a start time (10am in this example)
+			end : '18:00', // an end time (6pm in this example)
+			
+			dow : [0, 1, 2, 3, 4]
+			// days of week. an array of zero-based day of week integers (0=Sunday)
+			// (Monday-Thursday in this example)
+			},
 			//
 			// dayClick : function() {
 			// alert('a day has been clicked!');
 			// }
 			// /* other options go here */
+			eventDrop: function(event, delta, revertFunc) {
+
+		        // alert(event.title + " was dropped on " + event.start.format());
+
+		        if (!confirm("Are you sure you want to edit the date of this interview to be "+event.start.format()+" ?")) {
+		            revertFunc();
+		        }else{
+		        	var request = $.ajax({
+		        		beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		                url: '/interviews/'+event.id,
+		                type: 'PUT',
+		                data: {
+		                    // our hypothetical feed requires UNIX timestamps
+		                   
+		                    newDate: event.start.format()
+		                    // can send json or other things
+		                },
+		                success: function(data) {                      // var events = [];
+		                    // for ( var i = 0; i < jsonResponse.length; i++){
+		                    //     var person = {start:jsonResponse[i].date, title:"Event" + i};
+		                    //     events.push(person);
+		                    // }
+		                    // callback(events);
+		                    console.log("success");
+		                },
+
+		                error: function(data){
+		                	console.log("failed");
+		                },
+		                dataType: 'JSON'
+		            });
+		        }
+
+   			 },
 
 		});
 

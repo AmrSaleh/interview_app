@@ -71,10 +71,27 @@ class InterviewsController < ApplicationController
   def update
     @interview = Interview.find(params[:id])
 
+    
+      puts "+++++++++++++++++++++++++++newDate++++++++++++++++++++++++++"
+      puts params[:newDate].nil?
+      puts params[:newDate]
+      puts "++++++++++++++++++++++++interview date+++++++++++++++++++"
+      # puts params[:interview][:date].nil?
+      # puts params[:interview][:date]
+      puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+
+       if !params[:newDate].nil?
+        params[:interview] = {}
+        params[:interview][:date] = params[:newDate]
+       end
+
+      puts "+++++++++++++++++++++++++IF ENDED++++++++++++++++++++++++++"
+
     respond_to do |format|
       if @interview.update_attributes(params[:interview])
         format.html { redirect_to @interview, notice: 'Interview was successfully updated.' }
-        format.json { head :no_content }
+        # format.json { head :no_content }
+        format.json { render json: @interview }
       else
         format.html { render action: "edit" }
         format.json { render json: @interview.errors, status: :unprocessable_entity }
@@ -102,7 +119,7 @@ class InterviewsController < ApplicationController
     	Interview.all.each do |interview|
     		if can? :show,interview.interviewee
           if !interview.date.nil? && !interview.interviewer.nil?
-  					event = {url:"/interviews/"+interview.id.to_s,start: interview.date, title: interview.interviewee.name + " with "+ interview.interviewer.name+ "\n"+ interview.vacant_job.name+ "\n" + interview.score.to_s}
+  					event = {url:"/interviews/"+interview.id.to_s,interview_id: interview.id,start: interview.date, title: interview.interviewee.name + " with "+ interview.interviewer.name+ "\n"+ interview.vacant_job.name+ "\n" + interview.score.to_s}
   					events.push(event)
           end
         end
