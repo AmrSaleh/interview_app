@@ -102,7 +102,7 @@
 		        }else{
 		        	var request = $.ajax({
 		        		beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-		                url: '/interviews/'+event.id,
+		                url: '/interviews/'+event.interview_id,
 		                type: 'PUT',
 		                data: {
 		                    // our hypothetical feed requires UNIX timestamps
@@ -116,7 +116,10 @@
 		                    //     events.push(person);
 		                    // }
 		                    // callback(events);
+		                    var cell =document.getElementById(event.interview_id)
+		                    cell.innerText = event.start.format()
 		                    console.log("success");
+		                    // console.log(cell);
 		                },
 
 		                error: function(data){
@@ -177,7 +180,7 @@
 					</div>
 
 					<div class="table-responsive">
-						<table class="table table-striped table-bordered table-hover">
+						<table  class="table table-striped table-bordered table-hover">
 							<thead>
 								<tr>
 									<th>Score</th>
@@ -207,7 +210,7 @@
 												<td><%= interview.interviewee.name %></td>
 											<%end%>
 											<td><%= interview.vacant_job.name %></td>
-											<td><%= interview.date %></td>
+											<td id="<%=interview.id%>"><%= interview.date %></td>
 											<td><%= link_to 'Show', interview %></td>
 											<%if can? :show,:all%>
 											<td><%= link_to 'Edit', edit_interview_path(interview) %></td>
