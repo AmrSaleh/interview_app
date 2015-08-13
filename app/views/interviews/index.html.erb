@@ -67,7 +67,7 @@
 			// allDay : false // will make the time show
 			// }],
 			//
-			 editable : true,
+			
 
 			// color : 'black', // an option!
 			// textColor : 'yellow', // an option!
@@ -93,6 +93,9 @@
 			// alert('a day has been clicked!');
 			// }
 			// /* other options go here */
+
+			<%if can? :show,:all%>
+			editable : true,
 			eventDrop: function(event, delta, revertFunc) {
 
 		        // alert(event.title + " was dropped on " + event.start.format());
@@ -129,7 +132,9 @@
 		            });
 		        }
 
-   			 },
+   			},
+   			<%end%>
+   			
 
 		});
 

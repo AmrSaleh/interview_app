@@ -129,13 +129,21 @@ class IntervieweesController < ApplicationController
     @interviewee = Interviewee.find(params[:id])
      authorize! :show,@interviewee
 
-    if ( params[:resume]['name']== ""  ||  params[:resume]['attachment']==nil)
-      flash[:error] = "Resume name and file are required"
-      redirect_to request.referrer
-    return  
-    end
+   
     # && params[:resume]["attachment"] !=nil)
     if ( params[:resume]["name"]!= ""  && params[:resume]["attachment"]!=nil)
+     
+
+      @resume = Resume.new(params[:resume])
+      # @resume.attachment = params[:resume]['attachment']
+
+          
+      if @resume.attachment_integrity_error != nil
+        flash[:error] = @resume.attachment_integrity_error.to_s
+        redirect_to request.referrer
+        return
+      end
+
       @resume = Resume.create(params[:resume])
       @resume.update_attributes!(interviewee_id: @interviewee.id)
     end

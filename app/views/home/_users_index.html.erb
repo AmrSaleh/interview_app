@@ -23,8 +23,8 @@
 					
 					<td><%= user.email %></td>
 					<td><%= user.admin %></td>
-					<td><%= button_to "Make Admin", "/home/make_user_admin/#{user.id}/t" %></td>
-					<td><%= button_to "Remove Admin", "/home/make_user_admin/#{user.id}/f"%></td>
+					<td><%= button_to "Make Admin", "/home/make_user_admin/#{user.id}/t", :class => "btn btn-success"%></td>
+					<td><%= button_to "Remove Admin", "/home/make_user_admin/#{user.id}/f", :class => "btn btn-danger"%></td>
 					
 				
 			<% end %>
