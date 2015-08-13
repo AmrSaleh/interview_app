@@ -45,6 +45,14 @@ class InterviewsController < ApplicationController
   def create
     if(current_user.admin? || !current_user.interviewees.first.nil?)
       @interview = Interview.new(params[:interview])
+
+      @interview.interviewer.interviews.each do |interview|
+        if interview.date == @interview.date
+          flash[:error] = "same interviewer already has an interview at the same date"
+          redirect_to request.referrer
+          return
+        end
+      end
       respond_to do |format|
         if @interview.save
 
@@ -71,14 +79,21 @@ class InterviewsController < ApplicationController
   def update
     @interview = Interview.find(params[:id])
 
+      @interview.interviewer.interviews.each do |interview|
+        if interview.date == @interview.date
+          flash[:error] = "same interviewer already has an interview at the same date"
+          redirect_to request.referrer
+          return
+        end
+      end
     
-      puts "+++++++++++++++++++++++++++newDate++++++++++++++++++++++++++"
-      puts params[:newDate].nil?
-      puts params[:newDate]
-      puts "++++++++++++++++++++++++interview date+++++++++++++++++++"
-      # puts params[:interview][:date].nil?
-      # puts params[:interview][:date]
-      puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+      # puts "+++++++++++++++++++++++++++newDate++++++++++++++++++++++++++"
+      # puts params[:newDate].nil?
+      # puts params[:newDate]
+      # puts "++++++++++++++++++++++++interview date+++++++++++++++++++"
+      # # puts params[:interview][:date].nil?
+      # # puts params[:interview][:date]
+      # puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
        if !params[:newDate].nil?
         params[:interview] = {}

@@ -96,7 +96,7 @@ class IntervieweesController < ApplicationController
         # puts "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"
         # puts params[:apply][:remote_apply]
 
-        if !params[:apply][:remote_apply].nil? && params[:apply]==true
+        if !params[:apply][:remote_apply].nil? && params[:apply][:remote_apply]=='true'
           # flash[:notice] = "Interviewee was successfully created."
           # redirect_to interviews_url(apply:'true', vacant_id:params[:vacant_id][:remote_apply]) ,:method => :post
 
@@ -107,7 +107,7 @@ class IntervieweesController < ApplicationController
                 @interview.update_attributes!(interviewee_id: current_user.interviewees.first.id, vacant_job_id:params[:vacant_id][:remote_apply])
           end
             
-
+          UserEmail.apply_notify(@interview).deliver
           format.html { redirect_to interviews_url , notice: 'Interview successfully created.' }
           format.json { render json: interviews_url , status: :created, location: interviews_url  }
         else
