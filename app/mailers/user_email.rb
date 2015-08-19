@@ -1,5 +1,5 @@
 class UserEmail < ActionMailer::Base
-  default from: "from_no_reply@example.com"
+  default from: "no_reply@accorpa.com"
 
   def apply_notify(interview)
   	@user = interview.interviewee.user

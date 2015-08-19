@@ -46,31 +46,35 @@ class InterviewsController < ApplicationController
     if(current_user.admin? || !current_user.interviewees.first.nil?)
       @interview = Interview.new(params[:interview])
 
-      @interview.interviewer.interviews.each do |interview|
-        if interview.date == @interview.date
-          flash[:error] = "same interviewer already has an interview at the same date"
-          redirect_to request.referrer
-          return
-        end
+      if !@interview.interviewer.nil?
+              @interview.interviewer.interviews.each do |interview|
+                if interview.date == @interview.date
+                  flash[:error] = "same interviewer already has an interview at the same date"
+                  redirect_to request.referrer
+                  return
+                end
+              end
       end
       respond_to do |format|
         if @interview.save
 
-          if !params[:apply].nil? && params[:apply]=="true"
-            @interview.update_attributes!(interviewee_id: current_user.interviewees.first.id, vacant_job_id:params[:vacant_id])
-          end
+            if !params[:apply].nil? && params[:apply]=="true"
+              @interview.update_attributes!(interviewee_id: current_user.interviewees.first.id, vacant_job_id:params[:vacant_id])
+                puts "EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_EMAIL_"
+          UserEmail.apply_notify(@interview).deliver
+            end
 
-          format.html { redirect_to @interview, notice: 'Interview was successfully created.' }
-          format.json { render json: @interview, status: :created, location: @interview }
+            format.html { redirect_to @interview, notice: 'Interview was successfully created.' }
+            format.json { render json: @interview, status: :created, location: @interview }
         else
-          format.html { render action: "new" }
-          format.json { render json: @interview.errors, status: :unprocessable_entity }
+            format.html { render action: "new" }
+            format.json { render json: @interview.errors, status: :unprocessable_entity }
         end
       end
     else
-      
-      flash[:notice] = "Please fill in your information first"
-      redirect_to new_interviewee_url(apply:'true', vacant_id:params[:vacant_id])
+              
+              flash[:notice] = "Please fill in your information first"
+              redirect_to new_interviewee_url(apply:'true', vacant_id:params[:vacant_id])
     end
   end
 
@@ -79,6 +83,7 @@ class InterviewsController < ApplicationController
   def update
     @interview = Interview.find(params[:id])
 
+if  @interview.interviewer !=nil
       @interview.interviewer.interviews.each do |interview|
         if interview.date == @interview.date
           flash[:error] = "same interviewer already has an interview at the same date"
@@ -86,6 +91,7 @@ class InterviewsController < ApplicationController
           return
         end
       end
+end
     
       # puts "+++++++++++++++++++++++++++newDate++++++++++++++++++++++++++"
       # puts params[:newDate].nil?
@@ -142,4 +148,34 @@ class InterviewsController < ApplicationController
 #     Interview.all.to_json
 			render json: events
     end
+
+    def deny
+      # interview = Interview.find(params[:id])
+      # interview.update_attributes!(date: params[:newDate])
+
+      request = DateRequest.find(params[:requestID])
+      request.delete
+
+      flash[:notice] = "interview date remains the same and request revoked"
+      redirect_to interviews_url
+    end
+
+    def approve
+      puts "7777777777777777777777777777777777777"
+      puts params[:id]
+      puts params[:newDate]
+      puts params[:requestID]
+      puts "7777777777777777777777777777777777777" 
+
+      interview = Interview.find(params[:id])
+      interview.update_attributes!(date: params[:newDate])
+
+      request = DateRequest.find(params[:requestID])
+      request.delete
+
+      flash[:notice] = "interview date updated"
+      redirect_to interviews_url
+    end
+
+
 end

@@ -9,7 +9,15 @@
 	Edit
 	<% end %>
 	<%end%>
-	<h1>Show interview</h1>
+	
+
+	<%if !can? :show,:all%>
+  		<%= link_to "/date_requests/new?inter_id=#{@interview.id}" , class: 'btn btn-primary' do %>
+    	<span class="glyphicon glyphicon-calendar"></span>
+   		Request date change
+  	<% end %>
+  	<h1>Show interview</h1>
+<%end%>
 </div>
 
 <dl class="dl-horizontal">

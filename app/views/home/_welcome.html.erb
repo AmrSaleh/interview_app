@@ -105,6 +105,16 @@
 					<a href="/interviewees" class="btn btn-primary btn-xl page-scroll">Interviewees</a>
 					<a href="/interviewers" class="btn btn-primary btn-xl page-scroll">Interviewers</a>
 					<a href="/home/users" class="btn btn-primary btn-xl page-scroll">Show Users</a>
+
+					<%DateRequest.all.each do |request|%>
+						<%if can? :update ,request.interview.interviewer %>
+						<a href="/date_requests" class="btn btn-success btn-xl page-scroll">Date Requests</a>
+							<!-- <%= button_to "Date Requests", "/date_requests", :class => "btn btn-danger"%> -->
+							<%break%>
+						<%end%>
+					<%end%>
+
+
 				<%else%>
 
 					<%Interview.all.each do |interview|%>
@@ -113,6 +123,8 @@
 							<%break%>
 						<%end%>
 					<%end%>
+
+
 
 					<a href="/interviewees" class="btn btn-primary btn-xl page-scroll">Interviewee Acount</a>
 					<!--

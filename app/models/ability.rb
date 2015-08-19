@@ -10,7 +10,9 @@ class Ability
         puts "anaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         puts x.user_id
         puts user.id
-        x.user_id == user.id
+        if !x.nil?
+           x.user_id == user.id
+        end
       end
   	else
   		# can :update, User

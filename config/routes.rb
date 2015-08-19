@@ -1,4 +1,7 @@
 InterviewApp::Application.routes.draw do
+  resources :date_requests
+
+
 	devise_for :users
 
 	get "resumes/index"
@@ -19,6 +22,11 @@ match '/home/make_user_admin/:id/:bool'=> 'home#edit_user_admin'
 	resources :interviews do
 		collection do
 			get 'load_events'
+		end
+
+		member do
+			get 'approve'
+			get 'deny'
 		end
 	end
 	resources :interviewees

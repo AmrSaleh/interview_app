@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  interview_id: MyString
+  requested_date: MyString
+
+two:
+  interview_id: MyString
+  requested_date: MyString

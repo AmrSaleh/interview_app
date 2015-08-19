@@ -37,4 +37,41 @@ InterviewApp::Application.configure do
   config.assets.debug = true
 
   Paperclip.options[:command_path] = "/usr/local/bin/"
+
+  config.action_mailer.delivery_method = :smtp
+# SMTP settings for gmail
+config.action_mailer.smtp_settings = {
+ :address              => "smtp.gmail.com",
+ :port                 => 587,
+ :user_name            => "amrsalehmaly@gmail.com",
+ :password             => "",
+ :authentication       => "plain",
+:enable_starttls_auto => true
+}
+
+# config.action_mailer.delivery_method = :smtp
+# # SMTP settings for mailgun
+# ActionMailer::Base.smtp_settings = {
+#   :port           => 587,
+#   :address        => "smtp.mailgun.org",
+#   :domain         => ENV['domain'],
+#   :user_name      => ENV['username'],
+#   :password       => ENV['password'],
+#   :authentication => :plain,
+# }
+
+config.action_mailer.raise_delivery_errors = true
+
+# # set delivery method to :smtp, :sendmail or :test
+# config.action_mailer.delivery_method = :smtp
+
+# # these options are only needed if you choose smtp delivery
+# config.action_mailer.smtp_settings = {
+#   :address        => 'smtp.example.com',
+#   :port           => 25,
+#   :domain         => 'www.example.com',
+#   :authentication => :login,
+#   :user_name      => 'www',
+#   :password       => 'secret'
+# }
 end

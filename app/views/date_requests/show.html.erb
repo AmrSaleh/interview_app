@@ -1,0 +1,20 @@
+<div class="page-header">
+  <%= link_to date_requests_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_date_request_path(@date_request), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show date_request</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Interview:</dt>
+  <dd><%= @date_request.interview_id %></dd>
+
+  <dt>Requested date:</dt>
+  <dd><%= @date_request.requested_date %></dd>
+
+</dl>
