@@ -21,7 +21,7 @@
     <tbody>
       <%= content_tag_for(:tr, @date_requests) do |date_request| %>
       <%if can? :update,date_request.interview.interviewer%>
-            <td><%= date_request.interview_id %></td>
+            <td><%= date_request.interview.id_with_name %></td>
             <td><%= date_request.requested_date %></td>
             <td><%= link_to 'Approve', "/interviews/#{date_request.interview_id}/approve?newDate=#{date_request.requested_date}&requestID=#{date_request.id}" %></td>
             <td><%= link_to 'Deny', "/interviews/#{date_request.interview_id}/deny?newDate=#{date_request.requested_date}&requestID=#{date_request.id}" %></td>
