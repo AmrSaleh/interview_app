@@ -30,6 +30,14 @@
               <li><a href="/interviewees">Interviewees</a></li>
               <li><a href="/interviewers">Interviewers</a></li>
               <li><a href="/home/users">Show Users</a></li>
+
+              <%DateRequest.all.each do |request|%>
+            <%if can? :update ,request.interview.interviewer %>
+            <li><a href="/date_requests" >Date Requests</a></li>
+              <%break%>
+            <%end%>
+          <%end%>
+
             <%else%>
               <%Interview.all.each do |interview|%>
                 <%if can? :show ,interview %>
